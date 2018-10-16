@@ -18,19 +18,28 @@ def get_birthday_from_user():
 
 
 def compute_days_between_dates(now, birthday):
-    delta = datetime.timedelta(now, birthday)
+    date_this_year = datetime.datetime(now.year, birthday.month, birthday.day)
+    date1 = datetime.datetime(now.year, now.month, now.day)
+    delta = date_this_year - date1
     return delta
 
 
-def print_birthday_information():
+def print_birthday_information(days):
+    if days < 0:
+        print('Your Birthday was {} days ago' .format(-days))
+    elif days > 0:
+        print('Your Birthday will be in {} days' .format(days))
+    else:
+        print('Happy Birthday')
     pass
 
 
 def main():
     print_header()
     birthday = get_birthday_from_user()
-    print(birthday)
-    print(type(birthday))
+    now = datetime.datetime.now()
+    dt = compute_days_between_dates(now, birthday)
+    print_birthday_information(dt.days)
     return
 
 
